@@ -1,0 +1,13 @@
+{
+  "name": "zestchat-api",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.556.0",
+    "bcryptjs": "^2.4.3",
+    "formidable": "^3.5.1",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.11.5",
+    "uuid": "^9.0.1"
+  }
+}

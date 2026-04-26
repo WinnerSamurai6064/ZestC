@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1" }
+  ],
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "JWT_SECRET": "@jwt_secret",
+    "STORAGE_BUCKET": "@storage_bucket",
+    "STORAGE_ENDPOINT": "@storage_endpoint",
+    "STORAGE_KEY": "@storage_key",
+    "STORAGE_SECRET": "@storage_secret"
+  }
+}
