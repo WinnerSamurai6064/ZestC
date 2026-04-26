@@ -5,9 +5,6 @@ const fs = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
-// Disable body parsing so formidable can handle it
-export const config = { api: { bodyParser: false } };
-
 const s3 = new S3Client({
   region: 'auto',
   endpoint: process.env.STORAGE_ENDPOINT,
@@ -17,6 +14,7 @@ const s3 = new S3Client({
   },
 });
 
+// 1. Define the handler function first
 module.exports = async (req, res) => {
   cors(res);
   if (req.method === 'OPTIONS') return res.status(200).end();
@@ -39,6 +37,7 @@ module.exports = async (req, res) => {
 
     const ext = path.extname(file.originalFilename || '.jpg');
     const key = `uploads/${userId}/${uuidv4()}${ext}`;
+    
     const fileBuffer = fs.readFileSync(file.filepath);
 
     await s3.send(new PutObjectCommand({
@@ -56,3 +55,6 @@ module.exports = async (req, res) => {
     return res.status(500).json({ error: 'Upload failed' });
   }
 };
+
+// 2. Attach the config to the exported function AT THE BOTTOM
+module.exports.config = { api: { bodyParser: false } };
